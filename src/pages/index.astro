@@ -1,50 +1,140 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+// No frontmatter needed unless you add imports or logic later
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="de">
+<head>
+<style is:global>
+@import '../styles/global.css';
+</style>	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Der erste NARR im Himmel</title>
+<meta name="description" content="Entdecke 'Der erste NARR im Himmel' – ein Buch, das die zwei Evangelien für Israel und die Nationen beleuchtet. Erfahre mehr über Gottes bedingungslose Gnade durch den Apostel Paulus, unabhängig von Taten oder Hintergrund.">
+<meta name="keywords" content="Der erste NARR im Himmel, Apostel Paulus, Geheimnisse des Paulus, zwei Evangelien, Gnade, Gesetz, Israel, Nationen, bedingungslose Gnade, Martin Zender, biblische Botschaft, theologie, neues testament">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://narr-im-himmel.com">
+
+<!-- Google Fonts for Staatliches, Bebas Neue, Anton, and Inter -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;700&family=Staatliches&display=swap" as="style" onload='this.onload=null,this.rel="stylesheet"'>
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;700&family=Staatliches&display=swap" rel="stylesheet" media="all" onload='this.media="all"'>
+</noscript>
+
+</head>
+<body>
+<div class="fixed-background"></div>
+<div class="main-content-container w-full bg-gray-900 bg-opacity-80 rounded-xl shadow-2xl p-6 md:p-10 border border-gray-700">
+<header class="text-center mb-10">
+<h1 class="text-5xl md:text-7xl font-bold font-staatliches text-white leading-tight mb-2">
+Der erste NARR im Himmel
+</h1>
+<h2 class="text-xl md:text-3xl font-inter text-amber-300 font-semibold italic">
+Die Geheimnisse des Apostels Paulus (und warum die Sanftmütigen lediglich die Erde ererben werden)
+</h2>
+</header>
+<section class="mb-10 flex justify-center">
+<img src="https://front.narr-im-himmel.com/narr-im-himmel-bookcover.webp" alt="Book Cover: Der erste NARR im Himmel" width="300" height="450" class="rounded-lg shadow-lg border border-gray-600 w-full sm:w-3/4 md:w-1/2 lg:w-1/3 h-auto transition duration-300 ease-in-out transform hover:scale-105" fetchpriority="high">
+</section>
+<section class="mb-10">
+<h3 class="text-3xl md:text-4xl font-bold font-bebas-neue text-amber-300 mb-4 text-center">Über das Buch:</h3>
+<p class="text-lg md:text-xl text-gray-200 mb-4 text-justify">
+Als Jesus auf der Erde war, verkündete er eine Botschaft, die an die uralten Verheißungen Gottes anknüpfte. Diese gute Nachricht richtete sich an Israel. Doch nach seiner Himmelfahrt offenbarte Christus dem Apostel Paulus eine völlig neue Botschaft: reine Gnade, ohne Gesetz, ohne Bedingungen – für die Nationen. Es gibt also zwei Evangelien: eines für das Volk Israel, eines für den Rest der Welt. Die vielen Unterschiede zwischen diesen beiden Evangelien werden in diesem Buch eindrucksvoll aufgezeigt.
+</p>
+<p class="text-lg md:text-xl text-gray-200 text-justify">
+Trotzdem wird heute beides oft vermischt: Man spricht von Gnade, lebt aber weiterhin unter dem Druck der Gebote. Dieses Buch stellt die weitgehend vergessene Botschaft des Paulus ins Zentrum: Gottes Gnade gilt allen – ohne Vorbedingung, ohne religiöse Leistung. Paulus ist der Apostel, der uns zeigt, wie wir von Gott vollkommen angenommen sind – unabhängig von unseren Taten oder unserem Hintergrund. Gott stellt keine religiösen Erwartungen an dich. Stattdessen lädt Er dich ein, mit Ihm versöhnt zu werden und mit Ihm in eine lebendige Beziehung zu treten.
+</p>
+</section>
+<section class="mb-10">
+<h3 class="text-3xl md:text-4xl font-bold font-bebas-neue text-amber-300 mb-4 text-center">INHALTSVERZEICHNIS</h3>
+<ul class="list-none space-y-2 text-lg md:text-xl text-gray-200 px-4">
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+Vorwort des Übersetzers (für alle, die sich mit der Bibel nicht auskennen und warum man ihr vertrauen kann)
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+Danksagung
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+1. Einführung (für die, die sich bereits bemühen, Jesus zu folgen)
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+2. Wer ist dieser Narr?
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+3. Am Anfang
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+4. Jahrhundertelang geht es nur um die Erde
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+5. Kurzer Geschichtsabriss Israels
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+6. Auf dem Weg nach Damaskus
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+7. Weiter gehts in der Apostelgeschichte
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+8. „Mein Evangelium“
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+9. Paulus bedeutet „Pause“
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+10. Ein Evangelium für die gesamte Menschheit
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+11. Eine himmlische Bestimmung
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+12. Das höchste Ziel Gottes
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+13. Die wichtigsten Unterschiede
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+14. Nimm die neue Botschaft an
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+Epilog
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+Anhang 1: Zu den ältesten Bibelmanuskripten
+</li>
+<li class="flex items-start">
+<span class="mr-2 text-amber-400">•</span>
+Anhang 2: Ungefähre Zeittafel
+</li>
+</ul>
+</section>
+<section class="mb-10 text-center">
+<a href="#" class="inline-block px-8 py-4 bg-gradient-to-r from-red-600 to-red-800 text-white font-bold text-xl rounded-full shadow-lg hover:from-red-700 hover:to-red-900 transition duration-300 ease-in-out transform hover:scale-105 border-2 border-red-500">
+Im Buch blättern
+</a>
+</section>
+<footer class="text-center text-gray-500 text-sm mt-8">
+© 2025 Martin Zender. Alle Rechte vorbehalten.
+</footer>
+</div>
+</body>
 </html>

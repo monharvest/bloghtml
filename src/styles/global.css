@@ -1,155 +1,84 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
-  --box-shadow:
-    0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-    0 16px 32px rgba(var(--gray), 33%);
+/* Custom font classes */
+.font-staatliches { font-family: 'Staatliches', cursive; }
+.font-bebas-neue { font-family: 'Bebas Neue', sans-serif; }
+.font-anton { font-family: 'Anton', sans-serif; }
+.font-inter { font-family: 'Inter', sans-serif; }
+
+/* Custom scrollbar for better aesthetics on dark theme */
+::-webkit-scrollbar {
+    width: 8px;
 }
-@font-face {
-  font-family: "Atkinson";
-  src: url("/fonts/atkinson-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
 }
-@font-face {
-  font-family: "Atkinson";
-  src: url("/fonts/atkinson-bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 10px;
 }
+::-webkit-scrollbar-thumb:hover {
+    background: #6a6a6a;
+}
+
+/* Body styling - only sets basic text color and font */
 body {
-  font-family: "Atkinson", sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
-  font-size: 20px;
-  line-height: 1.7;
-}
-main {
-  width: 720px;
-  max-width: calc(100% - 2em);
-  margin: auto;
-  padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0 0 0.5rem 0;
-  color: rgb(var(--black));
-  line-height: 1.2;
-}
-h1 {
-  font-size: 3.052em;
-}
-h2 {
-  font-size: 2.441em;
-}
-h3 {
-  font-size: 1.953em;
-}
-h4 {
-  font-size: 1.563em;
-}
-h5 {
-  font-size: 1.25em;
-}
-strong,
-b {
-  font-weight: 700;
-}
-a {
-  color: var(--accent);
-}
-a:hover {
-  color: var(--accent);
-}
-p {
-  margin-bottom: 1em;
-}
-.prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
-  font-size: 16px;
-}
-input {
-  font-size: 16px;
-}
-table {
-  width: 100%;
-}
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-code {
-  padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
-  border-radius: 2px;
-}
-pre {
-  padding: 1.5em;
-  border-radius: 8px;
-}
-pre > code {
-  all: unset;
-}
-blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
-}
-hr {
-  border: none;
-  border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-  body {
-    font-size: 18px;
-  }
-  main {
-    padding: 1em;
-  }
+    background-color: #0d0d0d; /* Base color for areas not covered by fixed background */
+    color: #f0f0f0; /* Light grey for general text */
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Needed for z-index context if not on a fixed element */
 }
 
-.sr-only {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-  clip: rect(1px 1px 1px 1px);
-  /* maybe deprecated but we need to support legacy browsers */
-  clip: rect(1px, 1px, 1px, 1px);
-  /* modern browsers, clip-path works inwards from each corner */
-  clip-path: inset(50%);
-  /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-  white-space: nowrap;
+/* Fixed background div for stars and gradient */
+.fixed-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place behind content */
+    background-color: #0d0d0d; /* Very dark almost black base */
+    background-image:
+        /* Layer 1: Linear gradient to fade stars from middle downwards */
+        linear-gradient(to bottom,
+            transparent 0%,
+            transparent 50vh,
+            #0d0d0d 100%
+        ),
+        /* Star field layer 1: small, dense stars */
+        radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+        /* Star field layer 2: medium stars, less dense */
+        radial-gradient(circle, rgba(255, 255, 255, 0.6) 1.5px, transparent 1.5px),
+        /* Star field layer 3: larger, sparse stars */
+        radial-gradient(circle, rgba(255, 255, 255, 0.4) 2px, transparent 2px);
+
+    background-size:
+        100% 100%,
+        150px 150px,
+        250px 250px,
+        350px 350px;
+
+    background-position:
+        0 0,
+        0 0,
+        75px 75px,
+        175px 175px;
+
+    background-repeat: no-repeat, repeat, repeat, repeat;
+}
+
+/* Ensure content is above the fixed background */
+.main-content-container {
+    position: relative;
+    z-index: 1; /* Place above fixed background */
+    max-width: 1200px; /* Default max-width for larger screens */
 }
