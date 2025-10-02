@@ -15,9 +15,6 @@ const nextConfig = {
     unoptimized: true,
   },
   
-  // Optimize build for deployment
-  swcMinify: true,
-  
   // Configure headers for better caching
   async headers() {
     return [

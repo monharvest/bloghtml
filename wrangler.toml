@@ -2,13 +2,20 @@ name = "blog"
 compatibility_date = "2024-01-15"
 pages_build_output_dir = ".next"
 
-[[d1_databases]]
+[env.production]
+[[env.production.d1_databases]]
 binding = "DB"
 database_name = "blog-db"
 database_id = "fed461dc-20ec-4aa9-a911-a4d88b3fa6e9"
 
 [env.production.vars]
 DATABASE_URL = "file:./dev.db"
+
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "blog-db"
+database_id = "fed461dc-20ec-4aa9-a911-a4d88b3fa6e9"
 
 [env.preview.vars]
 DATABASE_URL = "file:./dev.db"

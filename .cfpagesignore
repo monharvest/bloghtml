@@ -1,0 +1,9 @@
+.next/cache
+.next/trace
+node_modules
+.env*
+prisma/dev.db
+prisma/dev.db-journal
+.git
+.gitignore
+README.md
