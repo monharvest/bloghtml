@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "npm@10.8.2",
   "scripts": {
-    "build": "prisma generate && next build",
+    "build": "DATABASE_URL=file:./build.db prisma generate && next build",
     "build:cf": "npm run build",
     "dev": "next dev",
     "lint": "next lint",

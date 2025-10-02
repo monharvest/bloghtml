@@ -4,14 +4,50 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+// Handle build-time when DATABASE_URL might not be available
+const createPrismaClient = () => {
+  if (!process.env.DATABASE_URL) {
+    console.warn('DATABASE_URL not found, using mock data for build')
+    return null
+  }
+  
+  try {
+    return new PrismaClient()
+  } catch (error) {
+    console.warn('Database not available during build, using mock client')
+    return null
+  }
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export const prisma = globalForPrisma.prisma ?? createPrismaClient()
+
+if (process.env.NODE_ENV !== 'production' && prisma) {
+  globalForPrisma.prisma = prisma
+}
+
+// Mock data for build time
+const mockPosts = [
+  {
+    id: '1',
+    title: 'Sample Post',
+    slug: 'sample-post',
+    excerpt: 'This is a sample post for build time',
+    content: 'Sample content',
+    category: 'Technology',
+    image: '/placeholder.jpg',
+    metaDescription: 'Sample meta description',
+    published: true,
+    featured: false,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+]
 
 // Post-related database operations
 export const db = {
   // Get all posts
   getPosts: async () => {
+    if (!prisma) return mockPosts
     return await prisma.post.findMany({
       orderBy: { createdAt: 'desc' }
     })
@@ -19,6 +55,7 @@ export const db = {
 
   // Get published posts only
   getPublishedPosts: async () => {
+    if (!prisma) return mockPosts
     return await prisma.post.findMany({
       where: { published: true },
       orderBy: { createdAt: 'desc' }
@@ -27,6 +64,7 @@ export const db = {
 
   // Get post by slug
   getPostBySlug: async (slug: string) => {
+    if (!prisma) return mockPosts.find(p => p.slug === slug) || null
     return await prisma.post.findUnique({
       where: { slug }
     })
@@ -34,6 +72,8 @@ export const db = {
 
   // Get posts by category
   getPostsByCategory: async (category: string) => {
+    if (!prisma) return mockPosts
+    
     if (category === 'Бүгд') {
       return await prisma.post.findMany({
         where: { published: true },
@@ -52,6 +92,7 @@ export const db = {
 
   // Get featured posts
   getFeaturedPosts: async () => {
+    if (!prisma) return []
     return await prisma.post.findMany({
       where: { 
         featured: true,
@@ -73,6 +114,7 @@ export const db = {
     published?: boolean
     featured?: boolean
   }) => {
+    if (!prisma) throw new Error('Database not available')
     return await prisma.post.create({
       data
     })
@@ -90,6 +132,7 @@ export const db = {
     published?: boolean
     featured?: boolean
   }) => {
+    if (!prisma) throw new Error('Database not available')
     return await prisma.post.update({
       where: { id },
       data
@@ -98,6 +141,7 @@ export const db = {
 
   // Delete post
   deletePost: async (id: string) => {
+    if (!prisma) throw new Error('Database not available')
     return await prisma.post.delete({
       where: { id }
     })
@@ -105,6 +149,7 @@ export const db = {
 
   // Get categories
   getCategories: async () => {
+    if (!prisma) return [{ id: '1', name: 'Technology', slug: 'technology', createdAt: new Date(), updatedAt: new Date() }]
     return await prisma.category.findMany({
       orderBy: { name: 'asc' }
     })
@@ -115,6 +160,7 @@ export const db = {
     name: string
     slug: string
   }) => {
+    if (!prisma) throw new Error('Database not available')
     return await prisma.category.create({
       data
     })
