@@ -1,13 +1,6 @@
-name = "bloghtml"
+name = "nextblog"
 compatibility_date = "2024-01-15"
 pages_build_output_dir = ".next"
-
-[build]
-command = "./build.sh"
-
-[build.upload]
-format = "directory"
-dir = ".next"
 
 [vars]
 DATABASE_URL = "file:./build.db"
