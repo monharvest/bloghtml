@@ -43,13 +43,13 @@ export function HeroSection() {
 
   if (loading) {
     return (
-      <section className="container mx-auto px-4 py-1">
+      <section className="container mx-auto px-4 py-0.5">
         <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-lg bg-card">
-          <div className="relative min-h-[80px] md:min-h-[100px] overflow-hidden bg-muted animate-pulse" />
-          <div className="p-2 md:p-3 flex flex-col justify-center bg-card">
-            <div className="w-20 h-4 bg-muted rounded-full mb-2 animate-pulse" />
-            <div className="w-full h-6 bg-muted rounded mb-2 animate-pulse" />
-            <div className="w-3/4 h-4 bg-muted rounded mb-2 animate-pulse" />
+          <div className="relative min-h-[60px] md:min-h-[80px] overflow-hidden bg-muted animate-pulse" />
+          <div className="p-1.5 md:p-2 flex flex-col justify-center bg-card">
+            <div className="w-20 h-4 bg-muted rounded-full mb-1.5 animate-pulse" />
+            <div className="w-full h-5 bg-muted rounded mb-1.5 animate-pulse" />
+            <div className="w-3/4 h-3 bg-muted rounded mb-1.5 animate-pulse" />
             <div className="w-1/2 h-3 bg-muted rounded animate-pulse" />
           </div>
         </div>
@@ -60,10 +60,10 @@ export function HeroSection() {
   if (!featuredPost) return null
 
   return (
-    <section className="container mx-auto px-4 py-1">
+    <section className="container mx-auto px-4 py-0.5">
       <Link href={`/post/${featuredPost.slug}`}>
         <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
-          <div className="relative min-h-[80px] md:min-h-[100px] overflow-hidden">
+          <div className="relative min-h-[60px] md:min-h-[80px] overflow-hidden">
             <img
               src={featuredPost.image || "/placeholder.svg?height=400&width=600"}
               alt={featuredPost.title}
@@ -71,13 +71,13 @@ export function HeroSection() {
             />
           </div>
 
-          <div className="p-2 md:p-3 flex flex-col justify-center bg-card">
-            <span className="inline-block px-2 py-1 bg-accent text-accent-foreground text-xs rounded-full mb-2 w-fit">
+          <div className="p-1.5 md:p-2 flex flex-col justify-center bg-card">
+            <span className="inline-block px-2 py-0.5 bg-accent text-accent-foreground text-xs rounded-full mb-1.5 w-fit">
               {featuredPost.category}
             </span>
-            <h3 className="text-lg md:text-xl font-bold mb-2 text-card-foreground">{featuredPost.title}</h3>
-            <p className="text-muted-foreground mb-2 leading-relaxed text-sm">{featuredPost.excerpt}</p>
-            <time className="text-sm text-muted-foreground">{featuredPost.date}</time>
+            <h3 className="text-base md:text-lg font-bold mb-1.5 text-card-foreground">{featuredPost.title}</h3>
+            <p className="text-muted-foreground mb-1.5 leading-relaxed text-xs">{featuredPost.excerpt}</p>
+            <time className="text-xs text-muted-foreground">{featuredPost.date}</time>
           </div>
         </div>
       </Link>
