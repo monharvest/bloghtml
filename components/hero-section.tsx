@@ -89,7 +89,7 @@ export default function HeroSection() {
               <p className="text-gray-300 text-lg leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-200">
                 {featuredPost.excerpt}
               </p>
-              <div className="flex items-center gap-4 text-sm text-gray-400">
+              <div className="flex items-center gap-4 text-sm text-gray-300">
                 <span>{featuredPost.date}</span>
                 <span>•</span>
                 <span className="text-blue-400">{featuredPost.category}</span>

@@ -28,7 +28,7 @@ export function PostCard({ post, index }: PostCardProps) {
             {post.title}
           </h4>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 leading-relaxed">{post.excerpt}</p>
-          <time className="text-xs text-gray-500 dark:text-gray-500">{post.date}</time>
+          <time className="text-xs text-gray-600 dark:text-gray-400">{post.date}</time>
         </div>
       </article>
     </Link>

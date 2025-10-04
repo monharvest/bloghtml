@@ -70,10 +70,12 @@
     "zod": "3.25.67"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cssnano": "^7.1.1",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tsx": "^4.20.6",

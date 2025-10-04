@@ -7,10 +7,10 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">Udaxgui.com</h3>
-            <p className="text-gray-400 text-sm italic">
+            <p className="text-gray-300 text-sm italic">
               "Эдүгээ итгэл, найдвар, хайр гурав үлддэг боловч хамгийн агуу нь хайр мөн."
               <br />
-              <span className="text-gray-500">— 1 Коринт 13:13</span>
+              <span className="text-gray-400">— 1 Коринт 13:13</span>
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300 text-sm">
           © 2025 Udaxgui.com. Бүх эрх хуулиар хамгаалагдсан.
         </div>
       </div>

@@ -139,7 +139,7 @@ export function ArticlesSection() {
                       {post.excerpt}
                     </p>
                     
-                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
                       <span>{post.date}</span>
                       <span className="text-blue-600 dark:text-blue-400 font-medium group-hover:text-blue-800 dark:group-hover:text-blue-300 transition-colors">
                         Унших →
