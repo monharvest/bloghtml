@@ -41,14 +41,23 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  // Generate static params for all category slugs
-  return Object.keys(categoryNames).map((slug) => ({
+  // Generate static params for all category slugs, including URL-encoded versions
+  const slugs = Object.keys(categoryNames)
+  const allSlugs = [
+    ...slugs,
+    ...slugs.map(slug => encodeURIComponent(slug)) // Add encoded versions
+  ]
+  
+  return allSlugs.map((slug) => ({
     slug,
   }))
 }
 
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params
+  
+  // Decode the slug in case it contains URL-encoded characters (for Cyrillic)
+  const decodedSlug = decodeURIComponent(slug)
   
   // Load posts from static data during build
   const fs = require('fs')
@@ -57,8 +66,8 @@ export default async function CategoryPage({ params }: Props) {
   const data = fs.readFileSync(filePath, 'utf8')
   const allPosts: Post[] = JSON.parse(data)
   
-  // Get category name from slug
-  const categoryName = categoryNames[slug] || slug
+  // Get category name from both original and decoded slug
+  const categoryName = categoryNames[slug] || categoryNames[decodedSlug] || decodedSlug
   
   // Filter posts by category
   const posts = allPosts.filter(post => 
@@ -89,7 +98,7 @@ export default async function CategoryPage({ params }: Props) {
         <section className="max-w-6xl mx-auto px-4 py-12">
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">{categoryName}</h1>
-            <p className="text-gray-600 dark:text-gray-400">{categoryDescriptions[slug]}</p>
+            <p className="text-gray-600 dark:text-gray-400">{categoryDescriptions[slug] || categoryDescriptions[decodedSlug]}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

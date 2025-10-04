@@ -25,6 +25,9 @@ export function Header() {
             <Link href="/articles" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">
               Нийтлэл
             </Link>
+            <Link href="/category/Сайн мэдээ" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium">
+              Сайн мэдээ
+            </Link>
             
             {process.env.NODE_ENV === 'development' && (
               <Link href="/admin" className="text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 transition-colors font-medium">
@@ -76,6 +79,13 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Нийтлэл
+              </Link>
+              <Link 
+                href="/category/Сайн мэдээ" 
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Сайн мэдээ
               </Link>
               
               {process.env.NODE_ENV === 'development' && (
