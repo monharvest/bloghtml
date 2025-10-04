@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ArticlesPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-200">
       <Header />
       <main className="flex-1">
         <ArticlesSection />

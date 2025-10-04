@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 
 interface Post {
@@ -18,56 +19,33 @@ interface Post {
   createdAt?: string
 }
 
-export function HeroSection() {
+export default function HeroSection() {
   const [featuredPost, setFeaturedPost] = useState<Post | null>(null)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchFeaturedPost = async () => {
+    async function loadFeaturedPost() {
       try {
-        let posts: Post[] = []
-        
-        // Load from static data
-        try {
-          const staticResponse = await fetch('/static-data/posts.json')
-          if (staticResponse.ok) {
-            posts = await staticResponse.json()
-            // Convert createdAt to date format for static data
-            posts = posts.map(post => ({
-              ...post,
-              date: post.createdAt ? new Date(post.createdAt).toLocaleDateString("en-GB") : post.date
-            }))
-          }
-        } catch (staticError) {
-          console.error('Error fetching static data:', staticError)
-        }
-
-        if (posts.length > 0) {
-          const featured = posts.find((post) => post.featured && post.published !== false)
-          const fallback = posts.find((post) => post.published !== false) || posts[0]
-          setFeaturedPost(featured || fallback || null)
-        }
+        const response = await fetch('/static-data/posts.json')
+        const posts: Post[] = await response.json()
+        const featured = posts.find(post => post.featured) || posts[0]
+        setFeaturedPost(featured)
       } catch (error) {
-        console.error('Error fetching featured post:', error)
-      } finally {
-        setLoading(false)
+        console.error('Error loading featured post:', error)
       }
     }
 
-    fetchFeaturedPost()
+    loadFeaturedPost()
   }, [])
 
-  if (loading) {
+  if (!featuredPost) {
     return (
-      <section className="bg-slate-800 text-white">
-        <div className="max-w-6xl mx-auto px-4 py-12">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            <div className="relative h-64 bg-slate-700 rounded-2xl animate-pulse"></div>
-            <div className="space-y-6">
-              <div className="w-32 h-6 bg-slate-700 rounded-full animate-pulse"></div>
-              <div className="w-full h-8 bg-slate-700 rounded animate-pulse"></div>
-              <div className="w-3/4 h-6 bg-slate-700 rounded animate-pulse"></div>
-              <div className="w-1/2 h-4 bg-slate-700 rounded animate-pulse"></div>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative h-64 rounded-3xl overflow-hidden bg-gray-200 dark:bg-slate-700 animate-pulse">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+            <div className="max-w-2xl">
+              <div className="h-6 bg-gray-300 dark:bg-slate-600 rounded mb-2 w-24"></div>
+              <div className="h-8 bg-gray-300 dark:bg-slate-600 rounded mb-2 w-3/4"></div>
+              <div className="h-4 bg-gray-300 dark:bg-slate-600 rounded w-full"></div>
             </div>
           </div>
         </div>
@@ -75,43 +53,36 @@ export function HeroSection() {
     )
   }
 
-  if (!featuredPost) return null
-
   return (
-    <section className="bg-slate-800 text-white">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 gap-6 items-center">
-          {/* Featured Post Card */}
-          <div className="relative">
-            <Link href={`/post/${featuredPost.slug}`}>
-              <div className="relative rounded-2xl overflow-hidden group cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={featuredPost.image || "/placeholder.svg?height=400&width=600"}
-                    alt={featuredPost.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black/40"></div>
-                </div>
+    <section className="bg-slate-800 dark:bg-slate-900 transition-colors duration-200">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden group transition-transform duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl">
+            <Link href={`/post/${featuredPost.slug}`} className="block w-full h-full">
+              <div className="relative w-full h-full">
+                <Image
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </Link>
           </div>
-
-          {/* Right Side Content */}
-          <div className="space-y-6">
+          
+          <div className="text-white">
             <Link href={`/post/${featuredPost.slug}`} className="block group">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold leading-tight group-hover:text-blue-300 transition-colors duration-200">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-200">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-sm text-gray-400">
-                  <span>{featuredPost.date}</span>
-                  <span>•</span>
-                  <span>{featuredPost.category}</span>
-                </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 group-hover:text-blue-300 transition-colors duration-200">
+                {featuredPost.title}
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-200">
+                {featuredPost.excerpt}
+              </p>
+              <div className="flex items-center gap-4 text-sm text-gray-400">
+                <span>{featuredPost.date}</span>
+                <span>•</span>
+                <span className="text-blue-400">{featuredPost.category}</span>
               </div>
             </Link>
           </div>
