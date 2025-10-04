@@ -2,3 +2,14 @@ _worker.js
 _routes.json
 _headers
 _redirects
+
+# Optimize bundle size - exclude large images from static export
+# Images will be loaded dynamically via external CDN or optimized loading
+images/*.webp
+images/*.jpg
+images/*.jpeg
+images/*.png
+
+# Keep only essential static assets
+!images/placeholder.svg
+!images/placeholder-logo.svg

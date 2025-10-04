@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
+import { getOptimizedImageUrl } from "@/lib/image-optimization"
 
 interface ResponsiveImageProps {
   src: string
@@ -37,8 +38,11 @@ export function ResponsiveImage({
       : "(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
   )
 
+  // Optimize image URL for CDN delivery
+  const optimizedSrc = getOptimizedImageUrl(src, width || 800, quality)
+  
   // Fallback image
-  const fallbackSrc = imgError ? "/placeholder.svg" : src
+  const fallbackSrc = imgError ? "/placeholder.svg" : optimizedSrc
 
   // Determine fetchPriority - auto-set to "high" for priority images
   const effectiveFetchPriority = fetchPriority || (priority ? "high" : "auto")
@@ -55,7 +59,7 @@ export function ResponsiveImage({
     // Disable lazy loading for priority images
     loading: priority ? ("eager" as const) : ("lazy" as const),
     // Enable optimization only for local images, disable for external or uploaded images
-    unoptimized: src?.startsWith('/images/upload-') || src?.startsWith('http') || false,
+    unoptimized: optimizedSrc?.startsWith('http') || optimizedSrc?.startsWith('/images/upload-') || false,
     ...(fill 
       ? { fill: true } 
       : { 
