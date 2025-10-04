@@ -77,8 +77,8 @@ async function handleLocalUpload(request: NextRequest) {
   const extension = path.extname(file.name)
   const filename = `upload-${timestamp}${extension}`
   
-  // Save to public folder
-  const publicPath = path.join(process.cwd(), 'public', filename)
+  // Save to public/images folder
+  const publicPath = path.join(process.cwd(), 'public', 'images', filename)
   const bytes = await file.arrayBuffer()
   const buffer = Buffer.from(bytes)
   
@@ -86,7 +86,7 @@ async function handleLocalUpload(request: NextRequest) {
   
   return NextResponse.json({
     success: true,
-    url: `/${filename}`,
+    url: `/images/${filename}`,
     filename
   })
 }

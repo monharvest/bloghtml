@@ -136,7 +136,7 @@ export default async function PostPage({ params }: PostPageProps) {
               fill 
               className="object-cover" 
               priority 
-              unoptimized={post.image?.startsWith('/upload-')}
+              unoptimized={post.image?.startsWith('/images/upload-')}
             />
           </div>
 

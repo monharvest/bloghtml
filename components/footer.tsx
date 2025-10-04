@@ -7,19 +7,29 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">Udaxgui.com</h3>
-            <p className="text-gray-300 leading-relaxed">Итгэл, найдвар, хайрын тухай мэдээс блог.</p>
+            <p className="text-gray-400 text-sm italic">
+              "Эдүгээ итгэл, найдвар, хайр гурав үлддэг боловч хамгийн агуу нь хайр мөн."
+              <br />
+              <span className="text-gray-500">— 1 Коринт 13:13</span>
+            </p>
           </div>
 
           <div>
             <h4 className="font-bold mb-4 text-gray-100">ХОЛБООСУУД</h4>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-wrap gap-4">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">
                 Нүүр
               </Link>
               <Link href="/articles" className="text-gray-300 hover:text-white transition-colors">
+                Нийтлэлүүд
+              </Link>
+              <Link href="/category/Сайн мэдээ" className="text-gray-300 hover:text-white transition-colors">
                 Сайн мэдээ
               </Link>
-              <Link href="/articles" className="text-gray-300 hover:text-white transition-colors">
+              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+                Бидний тухай
+              </Link>
+              <Link href="/admin" className="text-gray-300 hover:text-white transition-colors">
                 Админ
               </Link>
             </nav>

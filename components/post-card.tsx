@@ -17,7 +17,7 @@ export function PostCard({ post, index }: PostCardProps) {
             alt={post.title} 
             fill 
             className="object-cover" 
-            unoptimized={post.image?.startsWith('/upload-')}
+            unoptimized={post.image?.startsWith('/images/upload-')}
           />
         </div>
 

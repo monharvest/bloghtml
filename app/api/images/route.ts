@@ -6,8 +6,14 @@ export const dynamic = 'force-static'
 
 export async function GET() {
   try {
-    const publicDir = path.join(process.cwd(), "public")
-    const files = fs.readdirSync(publicDir)
+    const imagesDir = path.join(process.cwd(), "public", "images")
+    
+    // Check if images directory exists
+    if (!fs.existsSync(imagesDir)) {
+      return NextResponse.json({ images: [] })
+    }
+    
+    const files = fs.readdirSync(imagesDir)
 
     // Filter for image files
     const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp"]
@@ -16,7 +22,7 @@ export async function GET() {
         const ext = path.extname(file).toLowerCase()
         return imageExtensions.includes(ext)
       })
-      .map((file) => `/${file}`)
+      .map((file) => `/images/${file}`)
 
     return NextResponse.json({ images })
   } catch (error) {
