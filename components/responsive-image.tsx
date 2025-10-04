@@ -13,6 +13,7 @@ interface ResponsiveImageProps {
   priority?: boolean
   sizes?: string
   quality?: number
+  fetchPriority?: "high" | "low" | "auto"
 }
 
 export function ResponsiveImage({ 
@@ -24,7 +25,8 @@ export function ResponsiveImage({
   height,
   priority = false,
   sizes,
-  quality = 75
+  quality = 75,
+  fetchPriority
 }: ResponsiveImageProps) {
   const [imgError, setImgError] = useState(false)
 
@@ -38,6 +40,9 @@ export function ResponsiveImage({
   // Fallback image
   const fallbackSrc = imgError ? "/placeholder.svg" : src
 
+  // Determine fetchPriority - auto-set to "high" for priority images
+  const effectiveFetchPriority = fetchPriority || (priority ? "high" : "auto")
+
   const imageProps = {
     src: fallbackSrc,
     alt,
@@ -45,7 +50,10 @@ export function ResponsiveImage({
     onError: () => setImgError(true),
     quality,
     sizes: defaultSizes,
-    priority,
+    priority, // This prevents lazy loading when true
+    fetchPriority: effectiveFetchPriority, // This sets fetch priority
+    // Disable lazy loading for priority images
+    loading: priority ? ("eager" as const) : ("lazy" as const),
     // Enable optimization only for local images, disable for external or uploaded images
     unoptimized: src?.startsWith('/images/upload-') || src?.startsWith('http') || false,
     ...(fill 
@@ -70,11 +78,21 @@ export const ImagePresets = {
     className: "object-cover"
   },
   
+  // For first post card (high priority for LCP)
+  postCardFirst: {
+    sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+    quality: 80,
+    priority: true,
+    fetchPriority: "high" as const,
+    className: "object-cover"
+  },
+  
   // For hero images
   hero: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw",
     quality: 85,
     priority: true,
+    fetchPriority: "high" as const,
     className: "object-cover"
   },
   

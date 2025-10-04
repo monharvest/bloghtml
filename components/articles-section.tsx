@@ -119,10 +119,8 @@ export function ArticlesSection() {
                       src={post.image || "/placeholder.svg"}
                       alt={post.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      quality={85}
-                      priority={index < 3} // Prioritize first 3 images
+                      {...(index === 0 ? ImagePresets.postCardFirst : ImagePresets.postCard)}
+                      className={`object-cover group-hover:scale-105 transition-transform duration-300 ${index === 0 ? ImagePresets.postCardFirst.className : ImagePresets.postCard.className}`}
                     />
                   </div>
                   
