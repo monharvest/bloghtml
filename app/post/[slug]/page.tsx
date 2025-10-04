@@ -29,15 +29,32 @@ interface PostPageProps {
   }>
 }
 
+export async function generateStaticParams() {
+  // Load posts from static data during build
+  try {
+    const fs = require('fs')
+    const path = require('path')
+    const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+    const data = fs.readFileSync(filePath, 'utf8')
+    const posts: Post[] = JSON.parse(data)
+    return posts.map((post) => ({
+      slug: post.slug,
+    }))
+  } catch (error) {
+    console.warn('Could not load posts for static generation:', error)
+    return []
+  }
+}
+
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params
   
-  // Load posts from static data
-  const response = await fetch(process.env.NODE_ENV === 'development' 
-    ? 'http://localhost:3000/static-data/posts.json' 
-    : `${process.env.VERCEL_URL || 'https://d48791d5.blog-5nk.pages.dev'}/static-data/posts.json`
-  )
-  const allPosts: Post[] = await response.json()
+  // Load posts from static data during build
+  const fs = require('fs')
+  const path = require('path')
+  const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+  const data = fs.readFileSync(filePath, 'utf8')
+  const allPosts: Post[] = JSON.parse(data)
   
   // Find the current post
   const post = allPosts.find(p => p.slug === slug)

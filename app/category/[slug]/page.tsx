@@ -58,15 +58,22 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+export async function generateStaticParams() {
+  // Generate static params for all category slugs
+  return Object.keys(categoryNames).map((slug) => ({
+    slug,
+  }))
+}
+
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params
   
-  // Load posts from static data
-  const response = await fetch(process.env.NODE_ENV === 'development' 
-    ? 'http://localhost:3000/static-data/posts.json' 
-    : `${process.env.VERCEL_URL || 'https://d48791d5.blog-5nk.pages.dev'}/static-data/posts.json`
-  )
-  const allPosts: Post[] = await response.json()
+  // Load posts from static data during build
+  const fs = require('fs')
+  const path = require('path')
+  const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+  const data = fs.readFileSync(filePath, 'utf8')
+  const allPosts: Post[] = JSON.parse(data)
   
   // Get category name from slug
   const categoryName = categoryNames[slug] || slug
