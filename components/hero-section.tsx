@@ -42,8 +42,8 @@ export default function HeroSection() {
       <section className="bg-slate-800 dark:bg-slate-900 transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden bg-gray-600 dark:bg-slate-700 animate-pulse">
-              {/* Maintains same dimensions as actual content */}
+            <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden bg-gray-600 dark:bg-slate-700 animate-pulse aspect-4-3">
+              {/* Maintain same dimensions as actual content */}
             </div>
             
             <div className="text-white">
@@ -68,9 +68,9 @@ export default function HeroSection() {
     <section className="bg-slate-800 dark:bg-slate-900 transition-colors duration-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden group transition-transform duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl">
+          <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden group transition-transform duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl hover-transform">
             <Link href={`/post/${featuredPost.slug}`} className="block w-full h-full">
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full aspect-4-3">
                 <Image
                   src={featuredPost.image}
                   alt={featuredPost.title}
@@ -78,6 +78,7 @@ export default function HeroSection() {
                   className="object-cover"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  quality={85}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />

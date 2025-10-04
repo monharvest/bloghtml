@@ -38,6 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="mn" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//images.unsplash.com" />
+      </head>
       <body className={`font-sans ${inter.variable} ${robotoMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
