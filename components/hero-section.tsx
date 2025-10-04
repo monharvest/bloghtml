@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
+import { ResponsiveImage, ImagePresets } from "./responsive-image"
 import Link from "next/link"
 
 interface Post {
@@ -71,16 +71,11 @@ export default function HeroSection() {
           <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden group transition-transform duration-300 hover:-translate-y-2 shadow-xl hover:shadow-2xl hover-transform">
             <Link href={`/post/${featuredPost.slug}`} className="block w-full h-full">
               <div className="relative w-full h-full aspect-4-3">
-                <Image
+                <ResponsiveImage
                   src={featuredPost.image}
                   alt={featuredPost.title}
                   fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                  quality={85}
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  {...ImagePresets.hero}
                 />
               </div>
             </Link>

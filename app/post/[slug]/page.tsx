@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Image from "next/image"
+import { ResponsiveImage, ImagePresets } from "@/components/responsive-image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import ReactMarkdown from "react-markdown"
@@ -130,13 +130,11 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
 
           <div className="relative w-full h-[240px] sm:h-[320px] md:h-[400px] lg:h-[480px] rounded-2xl overflow-hidden mb-8">
-            <Image 
+            <ResponsiveImage 
               src={post.image || "/placeholder.svg"} 
               alt={post.title} 
               fill 
-              className="object-cover" 
-              priority 
-              unoptimized={post.image?.startsWith('/images/upload-')}
+              {...ImagePresets.postFull}
             />
           </div>
 

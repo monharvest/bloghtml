@@ -11,11 +11,17 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Disable image optimization for static export but enable compression
+  // Enhanced image optimization for responsive images
   images: {
-    unoptimized: true,
+    // Enable optimization for static export with smart fallback
+    unoptimized: process.env.NODE_ENV === 'production' && process.env.STATIC_EXPORT === 'true',
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000, // 1 year
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: [], // Add external domains if needed
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
   // Optimize performance

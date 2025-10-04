@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import Image from "next/image"
+import { ResponsiveImage, ImagePresets } from "@/components/responsive-image"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 
@@ -27,12 +27,11 @@ export default function AboutPage() {
             {/* Add the about image */}
             <div className="mb-8 text-center">
               <div className="relative w-full max-w-2xl mx-auto h-64 md:h-80 rounded-lg overflow-hidden">
-                <Image
+                <ResponsiveImage
                   src="/images/about.webp"
                   alt="Бидний тухай"
                   fill
-                  className="object-cover"
-                  priority
+                  {...ImagePresets.about}
                 />
               </div>
             </div>
