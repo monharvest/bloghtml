@@ -33,10 +33,10 @@ export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
           setCategories([
             "Бүгд",
             "Advent",
-            "Ухал ба амилал",
+            "Үхэл ба амилал",
             "Сайн мэдээ",
             "Сургаалт зүйрлэлүүд",
-            "Мөнх үүний өйлгөлт",
+            "Мөнх үгийн ойлголт",
             "Тамын тухай",
           ])
         }
@@ -46,10 +46,10 @@ export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
         setCategories([
           "Бүгд",
           "Advent",
-          "Ухал ба амилал",
+          "Үхэл ба амилал",
           "Сайн мэдээ",
           "Сургаалт зүйрлэлүүд",
-          "Мөнх үүний өйлгөлт",
+          "Мөнх үгийн ойлголт",
           "Тамын тухай",
         ])
       }

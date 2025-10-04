@@ -39,13 +39,24 @@ export default function HeroSection() {
 
   if (!featuredPost) {
     return (
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="relative h-64 rounded-3xl overflow-hidden bg-gray-200 dark:bg-slate-700 animate-pulse">
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
-            <div className="max-w-2xl">
-              <div className="h-6 bg-gray-300 dark:bg-slate-600 rounded mb-2 w-24"></div>
-              <div className="h-8 bg-gray-300 dark:bg-slate-600 rounded mb-2 w-3/4"></div>
-              <div className="h-4 bg-gray-300 dark:bg-slate-600 rounded w-full"></div>
+      <section className="bg-slate-800 dark:bg-slate-900 transition-colors duration-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="relative h-64 lg:h-80 rounded-3xl overflow-hidden bg-gray-600 dark:bg-slate-700 animate-pulse">
+              {/* Maintains same dimensions as actual content */}
+            </div>
+            
+            <div className="text-white">
+              <div className="h-12 sm:h-16 lg:h-20 bg-gray-600 dark:bg-slate-600 rounded mb-4 animate-pulse w-3/4"></div>
+              <div className="space-y-2 mb-6">
+                <div className="h-6 bg-gray-600 dark:bg-slate-600 rounded animate-pulse w-full"></div>
+                <div className="h-6 bg-gray-600 dark:bg-slate-600 rounded animate-pulse w-5/6"></div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="h-4 bg-gray-600 dark:bg-slate-600 rounded animate-pulse w-20"></div>
+                <div className="h-4 bg-gray-600 dark:bg-slate-600 rounded animate-pulse w-2"></div>
+                <div className="h-4 bg-gray-600 dark:bg-slate-600 rounded animate-pulse w-24"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -66,6 +77,9 @@ export default function HeroSection() {
                   fill
                   className="object-cover"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
               </div>
             </Link>

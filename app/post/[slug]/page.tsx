@@ -5,6 +5,8 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import fs from "fs"
+import path from "path"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 
@@ -29,11 +31,48 @@ interface PostPageProps {
   }>
 }
 
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params
+  
+  // Decode the slug in case it contains URL-encoded characters
+  const decodedSlug = decodeURIComponent(slug)
+  
+  // Load posts from static data
+  const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+  const data = fs.readFileSync(filePath, 'utf8')
+  const allPosts: Post[] = JSON.parse(data)
+  
+  // Find the current post using both original and decoded slug
+  const post = allPosts.find(p => p.slug === slug || p.slug === decodedSlug)
+  
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+      description: 'The requested post could not be found.',
+    }
+  }
+
+  return {
+    title: post.title,
+    description: post.metaDescription || post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.metaDescription || post.excerpt,
+      images: [
+        {
+          url: post.image || '/placeholder.svg',
+          width: 800,
+          height: 600,
+          alt: post.title,
+        },
+      ],
+    },
+  }
+}
+
 export async function generateStaticParams() {
   // Load posts from static data during build
   try {
-    const fs = require('fs')
-    const path = require('path')
     const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
     const data = fs.readFileSync(filePath, 'utf8')
     const posts: Post[] = JSON.parse(data)
@@ -49,15 +88,16 @@ export async function generateStaticParams() {
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params
   
+  // Decode the slug in case it contains URL-encoded characters (for Cyrillic/Mongolian)
+  const decodedSlug = decodeURIComponent(slug)
+  
   // Load posts from static data during build
-  const fs = require('fs')
-  const path = require('path')
   const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
   const data = fs.readFileSync(filePath, 'utf8')
   const allPosts: Post[] = JSON.parse(data)
   
-  // Find the current post
-  const post = allPosts.find(p => p.slug === slug)
+  // Find the current post using both original and decoded slug
+  const post = allPosts.find(p => p.slug === slug || p.slug === decodedSlug)
   
   if (!post) {
     notFound()
