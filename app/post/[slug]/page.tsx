@@ -1,6 +1,4 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -26,78 +24,32 @@ interface Post {
 }
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function PostPage({ params }: PostPageProps) {
-  const [post, setPost] = useState<Post | null>(null)
-  const [relatedPosts, setRelatedPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
-  const { slug } = params
-
-  useEffect(() => {
-    async function loadPost() {
-      try {
-        const response = await fetch('/static-data/posts.json')
-        const allPosts: Post[] = await response.json()
-        
-        // Find the current post
-        const currentPost = allPosts.find(p => p.slug === slug)
-        
-        if (!currentPost) {
-          setPost(null)
-          setLoading(false)
-          return
-        }
-
-        setPost(currentPost)
-
-        // Find related posts (same category, different post)
-        const related = allPosts
-          .filter(p => p.id !== currentPost.id && p.category === currentPost.category)
-          .slice(0, 2)
-        
-        setRelatedPosts(related)
-      } catch (error) {
-        console.error('Error loading post:', error)
-        setPost(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadPost()
-  }, [slug])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-200">
-        <Header />
-        <main className="flex-1">
-          <article className="max-w-4xl mx-auto px-4 py-12">
-            <div className="animate-pulse">
-              <div className="h-6 bg-gray-300 dark:bg-slate-700 rounded w-24 mb-8"></div>
-              <div className="h-8 bg-gray-300 dark:bg-slate-700 rounded w-3/4 mb-4"></div>
-              <div className="h-4 bg-gray-300 dark:bg-slate-700 rounded w-32 mb-8"></div>
-              <div className="h-80 bg-gray-300 dark:bg-slate-700 rounded-2xl mb-8"></div>
-              <div className="space-y-4">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-4 bg-gray-300 dark:bg-slate-700 rounded w-full"></div>
-                ))}
-              </div>
-            </div>
-          </article>
-        </main>
-        <Footer />
-      </div>
-    )
-  }
-
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params
+  
+  // Load posts from static data
+  const response = await fetch(process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:3000/static-data/posts.json' 
+    : `${process.env.VERCEL_URL || 'https://d48791d5.blog-5nk.pages.dev'}/static-data/posts.json`
+  )
+  const allPosts: Post[] = await response.json()
+  
+  // Find the current post
+  const post = allPosts.find(p => p.slug === slug)
+  
   if (!post) {
     notFound()
   }
+
+  // Find related posts (same category, different post)
+  const relatedPosts = allPosts
+    .filter(p => p.id !== post.id && p.category === post.category)
+    .slice(0, 2)
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-200">

@@ -1,9 +1,7 @@
-"use client"
-
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PostCard } from "@/components/post-card"
-import { useState, useEffect } from "react"
+import { notFound } from "next/navigation"
 
 const categoryNames: Record<string, string> = {
   'sain-medee': "Сайн мэдээ",
@@ -57,62 +55,26 @@ interface Post {
 }
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-export default function CategoryPage({ params }: Props) {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
-  const { slug } = params
-
-  useEffect(() => {
-    async function loadPosts() {
-      try {
-        const response = await fetch('/static-data/posts.json')
-        const allPosts: Post[] = await response.json()
-        
-        // Get category name from slug
-        const categoryName = categoryNames[slug] || slug
-        
-        // Filter posts by category
-        const categoryPosts = allPosts.filter(post => 
-          post.category === categoryName
-        )
-
-        setPosts(categoryPosts)
-      } catch (error) {
-        console.error('Error loading posts:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadPosts()
-  }, [slug])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col bg-white dark:bg-slate-900 transition-colors duration-200">
-        <Header />
-        <main className="flex-1">
-          <section className="max-w-6xl mx-auto px-4 py-12">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-300 dark:bg-slate-700 rounded w-1/3 mb-4"></div>
-              <div className="h-4 bg-gray-300 dark:bg-slate-700 rounded w-2/3 mb-8"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="bg-gray-300 dark:bg-slate-700 rounded-xl h-64"></div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
-    )
-  }
-
+export default async function CategoryPage({ params }: Props) {
+  const { slug } = await params
+  
+  // Load posts from static data
+  const response = await fetch(process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:3000/static-data/posts.json' 
+    : `${process.env.VERCEL_URL || 'https://d48791d5.blog-5nk.pages.dev'}/static-data/posts.json`
+  )
+  const allPosts: Post[] = await response.json()
+  
+  // Get category name from slug
   const categoryName = categoryNames[slug] || slug
+  
+  // Filter posts by category
+  const posts = allPosts.filter(post => 
+    post.category === categoryName
+  )
 
   if (posts.length === 0) {
     return (
