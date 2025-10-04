@@ -7,7 +7,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Edit, Trash2, Save } from "lucide-react"
+import { ImagePicker } from "@/components/image-picker"
+import { Plus, Edit, Trash2, Save, Home } from "lucide-react"
+import Link from "next/link"
 
 interface Post {
   id: string
@@ -229,7 +231,16 @@ export default function AdminPanel() {
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-8">
       <div className="max-w-full mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin Panel</h1>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 rounded-lg transition-colors"
+            >
+              <Home className="w-4 h-4" />
+              Home
+            </Link>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin Panel</h1>
+          </div>
           <div className="flex gap-4">
             <Button onClick={exportPosts} variant="outline">
               Export Posts
@@ -313,15 +324,10 @@ export default function AdminPanel() {
                       />
                     </div>
 
-                    <div>
-                      <Label htmlFor="image">Image URL</Label>
-                      <Input
-                        id="image"
-                        value={formData.image}
-                        onChange={(e) => setFormData({...formData, image: e.target.value})}
-                        placeholder="/path/to/image.jpg"
-                      />
-                    </div>
+                    <ImagePicker
+                      value={formData.image || ""}
+                      onChange={(value) => setFormData({...formData, image: value})}
+                    />
 
                     <div>
                       <Label htmlFor="metaDescription">Meta Description</Label>

@@ -130,7 +130,14 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
 
           <div className="relative w-full h-[240px] sm:h-[320px] md:h-[400px] lg:h-[480px] rounded-2xl overflow-hidden mb-8">
-            <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" priority />
+            <Image 
+              src={post.image || "/placeholder.svg"} 
+              alt={post.title} 
+              fill 
+              className="object-cover" 
+              priority 
+              unoptimized={post.image?.startsWith('/upload-')}
+            />
           </div>
 
           <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-strong:text-gray-900 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400">

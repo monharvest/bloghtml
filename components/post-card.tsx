@@ -12,7 +12,13 @@ export function PostCard({ post, index }: PostCardProps) {
     <Link href={`/post/${post.slug}`}>
       <article className="group rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white dark:bg-slate-800 hover:-translate-y-2">
         <div className="relative h-48">
-          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
+          <Image 
+            src={post.image || "/placeholder.svg"} 
+            alt={post.title} 
+            fill 
+            className="object-cover" 
+            unoptimized={post.image?.startsWith('/upload-')}
+          />
         </div>
 
         <div className="p-6">
