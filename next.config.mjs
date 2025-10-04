@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use different output based on environment
-  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  // For Cloudflare Pages, use static export only for production builds
+  output: process.env.NODE_ENV === 'production' && process.env.STATIC_EXPORT === 'true' ? 'export' : undefined,
   trailingSlash: true,
   
   eslint: {

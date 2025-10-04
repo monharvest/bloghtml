@@ -64,22 +64,44 @@ export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
   }
 
   return (
-    <div className="flex justify-center mb-12">
-      <div className="flex flex-wrap gap-3 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg transition-colors duration-200">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => handleCategoryClick(category)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-              activeCategory === category
-                ? "bg-blue-600 text-white shadow-md"
-                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+    <>
+      {/* Mobile Version - Small flex buttons in one section */}
+      <div className="md:hidden flex justify-center mb-12 px-4">
+        <div className="flex flex-wrap gap-2 justify-center w-full">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              className={`py-2 px-4 rounded-full text-xs font-medium transition-all duration-200 ${
+                activeCategory === category
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Desktop Version - Original pill style */}
+      <div className="hidden md:flex justify-center mb-12">
+        <div className="flex flex-wrap gap-3 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg transition-colors duration-200">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                activeCategory === category
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
   )
 }
