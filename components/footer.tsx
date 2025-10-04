@@ -6,7 +6,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">SoonBlog.com</h3>
+            <h3 className="text-xl font-bold mb-4">Udaxgui.com</h3>
             <p className="text-gray-300 leading-relaxed">Итгэл, найдвар, хайрын тухай мэдээс блог.</p>
           </div>
 
@@ -27,7 +27,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-          © 2025 SoonBlog.com. Бүх эрх хуулиар хамгаалагдсан.
+          © 2025 Udaxgui.com. Бүх эрх хуулиар хамгаалагдсан.
         </div>
       </div>
     </footer>

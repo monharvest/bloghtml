@@ -8,7 +8,7 @@ export function Header() {
     <header className="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-50 transition-colors duration-200">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-          SoonBlog.com
+          Udaxgui.com
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
