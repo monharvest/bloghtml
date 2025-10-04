@@ -1,0 +1,44 @@
+[
+  {
+    "id": "cmg9p5no700028o4wuyo2lzw1",
+    "name": "Advent",
+    "slug": "advent",
+    "createdAt": "2025-10-02T17:36:17.431Z",
+    "updatedAt": "2025-10-02T17:36:17.431Z"
+  },
+  {
+    "id": "cmg9p5no700048o4w154p7eyd",
+    "name": "Мөнх үүний өйлгөлт",
+    "slug": "munkh-uunii-oilgolt",
+    "createdAt": "2025-10-02T17:36:17.432Z",
+    "updatedAt": "2025-10-02T17:36:17.432Z"
+  },
+  {
+    "id": "cmg9p5no400008o4wchx5zbh3",
+    "name": "Сайн мэдээ",
+    "slug": "sain-medee",
+    "createdAt": "2025-10-02T17:36:17.428Z",
+    "updatedAt": "2025-10-02T17:36:17.428Z"
+  },
+  {
+    "id": "cmg9p5no600018o4w4i0q2j2l",
+    "name": "Сургаалт зүйрлэлүүд",
+    "slug": "surgaalt-zuirleluud",
+    "createdAt": "2025-10-02T17:36:17.430Z",
+    "updatedAt": "2025-10-02T17:36:17.430Z"
+  },
+  {
+    "id": "cmg9p5no800058o4w6g9c7q93",
+    "name": "Тамын тухай",
+    "slug": "tamyn-tukhai",
+    "createdAt": "2025-10-02T17:36:17.432Z",
+    "updatedAt": "2025-10-02T17:36:17.432Z"
+  },
+  {
+    "id": "cmg9p5no700038o4w6k20ybe0",
+    "name": "Ухал ба амилал",
+    "slug": "ukhal-ba-amiral",
+    "createdAt": "2025-10-02T17:36:17.431Z",
+    "updatedAt": "2025-10-02T17:36:17.431Z"
+  }
+]

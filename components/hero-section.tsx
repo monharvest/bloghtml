@@ -15,6 +15,7 @@ interface Post {
   content?: string
   published?: boolean
   featured?: boolean
+  createdAt?: string
 }
 
 export function HeroSection() {
@@ -24,9 +25,24 @@ export function HeroSection() {
   useEffect(() => {
     const fetchFeaturedPost = async () => {
       try {
-        const response = await fetch('/api/posts')
-        if (response.ok) {
-          const posts: Post[] = await response.json()
+        let posts: Post[] = []
+        
+        // Load from static data
+        try {
+          const staticResponse = await fetch('/static-data/posts.json')
+          if (staticResponse.ok) {
+            posts = await staticResponse.json()
+            // Convert createdAt to date format for static data
+            posts = posts.map(post => ({
+              ...post,
+              date: post.createdAt ? new Date(post.createdAt).toLocaleDateString("en-GB") : post.date
+            }))
+          }
+        } catch (staticError) {
+          console.error('Error fetching static data:', staticError)
+        }
+
+        if (posts.length > 0) {
           const featured = posts.find((post) => post.featured && post.published !== false)
           const fallback = posts.find((post) => post.published !== false) || posts[0]
           setFeaturedPost(featured || fallback || null)

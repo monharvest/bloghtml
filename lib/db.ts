@@ -1,168 +1,104 @@
-import { PrismaClient } from '@prisma/client'
+// Static data loader for production builds
+import fs from 'fs'
+import path from 'path'
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+// Types
+interface Post {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  category: string
+  image: string
+  metaDescription: string
+  published: boolean
+  featured: boolean
+  createdAt: string | Date
+  updatedAt: string | Date
 }
 
-// Handle build-time when DATABASE_URL might not be available
-const createPrismaClient = () => {
-  if (!process.env.DATABASE_URL) {
-    console.warn('DATABASE_URL not found, using mock data for build')
-    return null
-  }
-  
-  try {
-    return new PrismaClient()
-  } catch (error) {
-    console.warn('Database not available during build, using mock client')
-    return null
+interface Category {
+  id: string
+  name: string
+  slug: string
+  createdAt: string | Date
+  updatedAt: string | Date
+}
+
+// Load static data functions
+function loadStaticPosts(): Post[] {
+  if (typeof window !== 'undefined') {
+    // Client-side: Return empty array, let components fetch from /static-data/posts.json
+    return []
+  } else {
+    // Server-side during build: read from file system
+    try {
+      const filePath = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+      const data = fs.readFileSync(filePath, 'utf8')
+      return JSON.parse(data)
+    } catch (error) {
+      console.warn('Static posts data not found, using empty array')
+      return []
+    }
   }
 }
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient()
-
-if (process.env.NODE_ENV !== 'production' && prisma) {
-  globalForPrisma.prisma = prisma
+function loadStaticCategories(): Category[] {
+  if (typeof window !== 'undefined') {
+    // Client-side: Return empty array, let components fetch from /static-data/categories.json
+    return []
+  } else {
+    // Server-side during build: read from file system
+    try {
+      const filePath = path.join(process.cwd(), 'public', 'static-data', 'categories.json')
+      const data = fs.readFileSync(filePath, 'utf8')
+      return JSON.parse(data)
+    } catch (error) {
+      console.warn('Static categories data not found, using empty array')
+      return []
+    }
+  }
 }
 
-// Mock data for build time
-const mockPosts = [
-  {
-    id: '1',
-    title: 'Sample Post',
-    slug: 'sample-post',
-    excerpt: 'This is a sample post for build time',
-    content: 'Sample content',
-    category: 'Technology',
-    image: '/placeholder.jpg',
-    metaDescription: 'Sample meta description',
-    published: true,
-    featured: false,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }
-]
-
-// Post-related database operations
+// Database operations (now using static data)
 export const db = {
   // Get all posts
-  getPosts: async () => {
-    if (!prisma) return mockPosts
-    return await prisma.post.findMany({
-      orderBy: { createdAt: 'desc' }
-    })
+  getPosts: async (): Promise<Post[]> => {
+    return loadStaticPosts()
   },
 
   // Get published posts only
-  getPublishedPosts: async () => {
-    if (!prisma) return mockPosts
-    return await prisma.post.findMany({
-      where: { published: true },
-      orderBy: { createdAt: 'desc' }
-    })
+  getPublishedPosts: async (): Promise<Post[]> => {
+    const posts = loadStaticPosts()
+    return posts.filter(post => post.published)
   },
 
   // Get post by slug
-  getPostBySlug: async (slug: string) => {
-    if (!prisma) return mockPosts.find(p => p.slug === slug) || null
-    return await prisma.post.findUnique({
-      where: { slug }
-    })
+  getPostBySlug: async (slug: string): Promise<Post | null> => {
+    const posts = loadStaticPosts()
+    return posts.find(post => post.slug === slug) || null
   },
 
   // Get posts by category
-  getPostsByCategory: async (category: string) => {
-    if (!prisma) return mockPosts
+  getPostsByCategory: async (category: string): Promise<Post[]> => {
+    const posts = loadStaticPosts()
     
     if (category === 'Бүгд') {
-      return await prisma.post.findMany({
-        where: { published: true },
-        orderBy: { createdAt: 'desc' }
-      })
+      return posts.filter(post => post.published)
     }
     
-    return await prisma.post.findMany({
-      where: { 
-        category,
-        published: true 
-      },
-      orderBy: { createdAt: 'desc' }
-    })
+    return posts.filter(post => post.category === category && post.published)
   },
 
   // Get featured posts
-  getFeaturedPosts: async () => {
-    if (!prisma) return []
-    return await prisma.post.findMany({
-      where: { 
-        featured: true,
-        published: true 
-      },
-      orderBy: { createdAt: 'desc' }
-    })
-  },
-
-  // Create new post
-  createPost: async (data: {
-    title: string
-    slug: string
-    excerpt: string
-    content: string
-    category: string
-    image: string
-    metaDescription: string
-    published?: boolean
-    featured?: boolean
-  }) => {
-    if (!prisma) throw new Error('Database not available')
-    return await prisma.post.create({
-      data
-    })
-  },
-
-  // Update post
-  updatePost: async (id: string, data: {
-    title?: string
-    slug?: string
-    excerpt?: string
-    content?: string
-    category?: string
-    image?: string
-    metaDescription?: string
-    published?: boolean
-    featured?: boolean
-  }) => {
-    if (!prisma) throw new Error('Database not available')
-    return await prisma.post.update({
-      where: { id },
-      data
-    })
-  },
-
-  // Delete post
-  deletePost: async (id: string) => {
-    if (!prisma) throw new Error('Database not available')
-    return await prisma.post.delete({
-      where: { id }
-    })
+  getFeaturedPosts: async (): Promise<Post[]> => {
+    const posts = loadStaticPosts()
+    return posts.filter(post => post.featured && post.published)
   },
 
   // Get categories
-  getCategories: async () => {
-    if (!prisma) return [{ id: '1', name: 'Technology', slug: 'technology', createdAt: new Date(), updatedAt: new Date() }]
-    return await prisma.category.findMany({
-      orderBy: { name: 'asc' }
-    })
-  },
-
-  // Create category
-  createCategory: async (data: {
-    name: string
-    slug: string
-  }) => {
-    if (!prisma) throw new Error('Database not available')
-    return await prisma.category.create({
-      data
-    })
+  getCategories: async (): Promise<Category[]> => {
+    return loadStaticCategories()
   }
 }

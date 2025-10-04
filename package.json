@@ -5,16 +5,11 @@
   "packageManager": "npm@10.8.2",
   "scripts": {
     "build": "prisma generate && next build",
-    "build:cf": "npm run build",
+    "build:static": "./build-static.sh",
+    "deploy:static": "npm run build:static && npx wrangler pages deploy out --project-name=blog --commit-dirty=true",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
-    "db:seed": "npx tsx scripts/seed.ts",
-    "db:studio": "npx prisma studio",
-    "db:reset": "npx prisma db push --force-reset && npm run db:seed",
-    "deploy:cf": "npm run build && find .next -name cache -type d -exec rm -rf {} + 2>/dev/null || true && rm -rf .next/trace && wrangler pages deploy .next --project-name=bloghtml",
-    "cf:d1:create": "wrangler d1 create udaxgui-blog-db",
-    "cf:d1:schema": "wrangler d1 execute udaxgui-blog-db --file=./scripts/d1-schema.sql"
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

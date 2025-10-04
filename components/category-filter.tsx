@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { categories } from "@/lib/posts"
+import { useState, useEffect } from "react"
 
 interface CategoryFilterProps {
   onCategoryChange: (category: string) => void
@@ -9,6 +8,55 @@ interface CategoryFilterProps {
 
 export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
   const [activeCategory, setActiveCategory] = useState("Бүгд")
+  const [categories, setCategories] = useState<string[]>(["Бүгд"])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        let posts: any[] = []
+        
+        // Load from static data
+        try {
+          const staticResponse = await fetch('/static-data/posts.json')
+          if (staticResponse.ok) {
+            posts = await staticResponse.json()
+          }
+        } catch (staticError) {
+          console.error('Error fetching static data:', staticError)
+        }
+
+        if (posts.length > 0) {
+          const uniqueCategories = Array.from(new Set(posts.map(post => post.category)))
+          setCategories(["Бүгд", ...uniqueCategories])
+        } else {
+          // Fallback to default categories
+          setCategories([
+            "Бүгд",
+            "Advent",
+            "Ухал ба амилал",
+            "Сайн мэдээ",
+            "Сургаалт зүйрлэлүүд",
+            "Мөнх үүний өйлгөлт",
+            "Тамын тухай",
+          ])
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+        // Fallback to default categories
+        setCategories([
+          "Бүгд",
+          "Advent",
+          "Ухал ба амилал",
+          "Сайн мэдээ",
+          "Сургаалт зүйрлэлүүд",
+          "Мөнх үүний өйлгөлт",
+          "Тамын тухай",
+        ])
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category)
