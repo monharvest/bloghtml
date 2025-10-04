@@ -4,16 +4,14 @@
   "private": true,
   "packageManager": "npm@10.8.2",
   "scripts": {
-    "build": "prisma generate && next build",
-    "build:static": "./build-static.sh",
-    "deploy:static": "npm run build:static && npx wrangler pages deploy out --project-name=blog --commit-dirty=true",
+    "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "npm run build && npx wrangler pages deploy out --project-name=blog"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
-    "@prisma/client": "^6.16.3",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -55,7 +53,6 @@
     "next": "^15.5.4",
     "next-themes": "latest",
     "path": "latest",
-    "prisma": "^6.16.3",
     "react": "^19",
     "react-day-picker": "9.8.0",
     "react-dom": "^19",
