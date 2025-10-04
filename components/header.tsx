@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 export function Header() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
           SoonBlog.com
         </Link>

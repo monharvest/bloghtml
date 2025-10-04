@@ -71,7 +71,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <article className="container mx-auto px-4 py-12 max-w-4xl">
+        <article className="max-w-4xl mx-auto px-4 py-12">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"

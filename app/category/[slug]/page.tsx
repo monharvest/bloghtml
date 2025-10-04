@@ -83,7 +83,7 @@ export default async function CategoryPage({ params }: Props) {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="container mx-auto px-4 py-12">
+        <section className="max-w-6xl mx-auto px-4 py-12">
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">{categoryName}</h1>
             <p className="text-muted-foreground">{categoryDescriptions[slug]}</p>

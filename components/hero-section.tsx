@@ -60,9 +60,9 @@ export function HeroSection() {
   if (loading) {
     return (
       <section className="bg-slate-800 text-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="relative h-80 bg-slate-700 rounded-2xl animate-pulse"></div>
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          <div className="grid md:grid-cols-2 gap-6 items-center">
+            <div className="relative h-64 bg-slate-700 rounded-2xl animate-pulse"></div>
             <div className="space-y-6">
               <div className="w-32 h-6 bg-slate-700 rounded-full animate-pulse"></div>
               <div className="w-full h-8 bg-slate-700 rounded animate-pulse"></div>
@@ -79,29 +79,19 @@ export function HeroSection() {
 
   return (
     <section className="bg-slate-800 text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Featured Post Card */}
           <div className="relative">
             <Link href={`/post/${featuredPost.slug}`}>
-              <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
-                <div className="relative h-80 overflow-hidden">
+              <div className="relative rounded-2xl overflow-hidden group cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                <div className="relative h-64 overflow-hidden">
                   <img
                     src={featuredPost.image || "/placeholder.svg?height=400&width=600"}
                     alt={featuredPost.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/40"></div>
-                  
-                  {/* Number Badge */}
-                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">1</span>
-                  </div>
-                  
-                  {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2 leading-tight">{featuredPost.title}</h3>
-                  </div>
                 </div>
               </div>
             </Link>
@@ -109,22 +99,21 @@ export function HeroSection() {
 
           {/* Right Side Content */}
           <div className="space-y-6">
-            <div className="space-y-2">
-              <div className="inline-block px-3 py-1 bg-blue-500 text-white text-sm rounded-full">
-                Онцлох нийтлэл
+            <Link href={`/post/${featuredPost.slug}`} className="block group">
+              <div className="space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold leading-tight group-hover:text-blue-300 transition-colors duration-200">
+                  {featuredPost.title}
+                </h2>
+                <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-200 transition-colors duration-200">
+                  {featuredPost.excerpt}
+                </p>
+                <div className="flex items-center gap-4 text-sm text-gray-400">
+                  <span>{featuredPost.date}</span>
+                  <span>•</span>
+                  <span>{featuredPost.category}</span>
+                </div>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-                {featuredPost.title}
-              </h2>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                {featuredPost.excerpt}
-              </p>
-              <div className="flex items-center gap-4 text-sm text-gray-400">
-                <span>{featuredPost.date}</span>
-                <span>•</span>
-                <span>{featuredPost.category}</span>
-              </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
