@@ -59,14 +59,16 @@ export function HeroSection() {
 
   if (loading) {
     return (
-      <section className="container mx-auto px-4 py-0.5">
-        <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-lg bg-card">
-          <div className="relative min-h-[60px] md:min-h-[80px] overflow-hidden bg-muted animate-pulse" />
-          <div className="p-1.5 md:p-2 flex flex-col justify-center bg-card">
-            <div className="w-20 h-4 bg-muted rounded-full mb-1.5 animate-pulse" />
-            <div className="w-full h-5 bg-muted rounded mb-1.5 animate-pulse" />
-            <div className="w-3/4 h-3 bg-muted rounded mb-1.5 animate-pulse" />
-            <div className="w-1/2 h-3 bg-muted rounded animate-pulse" />
+      <section className="bg-slate-800 text-white">
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="relative h-80 bg-slate-700 rounded-2xl animate-pulse"></div>
+            <div className="space-y-6">
+              <div className="w-32 h-6 bg-slate-700 rounded-full animate-pulse"></div>
+              <div className="w-full h-8 bg-slate-700 rounded animate-pulse"></div>
+              <div className="w-3/4 h-6 bg-slate-700 rounded animate-pulse"></div>
+              <div className="w-1/2 h-4 bg-slate-700 rounded animate-pulse"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -76,27 +78,56 @@ export function HeroSection() {
   if (!featuredPost) return null
 
   return (
-    <section className="container mx-auto px-4 py-0.5">
-      <Link href={`/post/${featuredPost.slug}`}>
-        <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow bg-card">
-          <div className="relative min-h-[60px] md:min-h-[80px] overflow-hidden">
-            <img
-              src={featuredPost.image || "/placeholder.svg?height=400&width=600"}
-              alt={featuredPost.title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
+    <section className="bg-slate-800 text-white">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          {/* Featured Post Card */}
+          <div className="relative">
+            <Link href={`/post/${featuredPost.slug}`}>
+              <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+                <div className="relative h-80 overflow-hidden">
+                  <img
+                    src={featuredPost.image || "/placeholder.svg?height=400&width=600"}
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/40"></div>
+                  
+                  {/* Number Badge */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xl">1</span>
+                  </div>
+                  
+                  {/* Content Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2 leading-tight">{featuredPost.title}</h3>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
 
-          <div className="p-1.5 md:p-2 flex flex-col justify-center bg-card">
-            <span className="inline-block px-2 py-0.5 bg-accent text-accent-foreground text-xs rounded-full mb-1.5 w-fit">
-              {featuredPost.category}
-            </span>
-            <h3 className="text-base md:text-lg font-bold mb-1.5 text-card-foreground">{featuredPost.title}</h3>
-            <p className="text-muted-foreground mb-1.5 leading-relaxed text-xs">{featuredPost.excerpt}</p>
-            <time className="text-xs text-muted-foreground">{featuredPost.date}</time>
+          {/* Right Side Content */}
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="inline-block px-3 py-1 bg-blue-500 text-white text-sm rounded-full">
+                Онцлох нийтлэл
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+                {featuredPost.title}
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                {featuredPost.excerpt}
+              </p>
+              <div className="flex items-center gap-4 text-sm text-gray-400">
+                <span>{featuredPost.date}</span>
+                <span>•</span>
+                <span>{featuredPost.category}</span>
+              </div>
+            </div>
           </div>
         </div>
-      </Link>
+      </div>
     </section>
   )
 }

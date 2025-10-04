@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { PostCard } from "./post-card"
+import Link from "next/link"
 import { CategoryFilter } from "./category-filter"
 
 interface Post {
@@ -69,36 +69,95 @@ export function ArticlesSection() {
 
   if (loading) {
     return (
-      <section id="articles" className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">Нийтлэлүүд</h2>
-        <CategoryFilter onCategoryChange={handleCategoryChange} />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="rounded-xl overflow-hidden shadow-lg bg-card animate-pulse">
-              <div className="relative h-48 bg-muted" />
-              <div className="p-6">
-                <div className="w-16 h-4 bg-muted rounded mb-3" />
-                <div className="w-full h-6 bg-muted rounded mb-2" />
-                <div className="w-3/4 h-4 bg-muted rounded mb-4" />
-                <div className="w-1/2 h-3 bg-muted rounded" />
+      <section id="articles" className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="w-48 h-8 bg-gray-300 rounded mx-auto mb-4 animate-pulse"></div>
+            <div className="w-96 h-4 bg-gray-300 rounded mx-auto animate-pulse"></div>
+          </div>
+          <div className="flex justify-center mb-12">
+            <div className="w-96 h-12 bg-white rounded-full shadow-lg animate-pulse"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg animate-pulse">
+                <div className="h-48 bg-gray-300"></div>
+                <div className="p-6">
+                  <div className="w-20 h-6 bg-gray-300 rounded-full mb-3"></div>
+                  <div className="w-full h-4 bg-gray-300 rounded mb-2"></div>
+                  <div className="w-3/4 h-4 bg-gray-300 rounded mb-4"></div>
+                  <div className="flex justify-between">
+                    <div className="w-20 h-3 bg-gray-300 rounded"></div>
+                    <div className="w-16 h-3 bg-gray-300 rounded"></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     )
   }
 
   return (
-    <section id="articles" className="container mx-auto px-4 py-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">Нийтлэлүүд</h2>
+    <section id="articles" className="bg-gray-50 py-16">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Нийтлэлүүд</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Сүнслэг удирдлага, амьдралын сургаалт, хувьсгалтай нийтлэлүүд
+          </p>
+        </div>
 
-      <CategoryFilter onCategoryChange={handleCategoryChange} />
+        <CategoryFilter onCategoryChange={handleCategoryChange} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPosts.map((post, index) => (
-          <PostCard key={post.id} post={post} index={index} />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredPosts.map((post, index) => (
+            <article key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group">
+              <Link href={`/post/${post.slug}`}>
+                <div className="relative">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={post.image || "/placeholder.svg?height=300&width=400"}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    
+                    {/* Number Badge */}
+                    <div className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold">{index + 1}</span>
+                    </div>
+                    
+                    {/* Title Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                      <h3 className="font-bold text-lg leading-tight line-clamp-2">{post.title}</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                        {post.category}
+                      </span>
+                    </div>
+                    
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <span>{post.date}</span>
+                      <span className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
+                        Унших →
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

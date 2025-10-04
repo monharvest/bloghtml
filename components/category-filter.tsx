@@ -64,20 +64,22 @@ export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2 mb-8">
-      {categories.map((category) => (
-        <button
-          key={category}
-          onClick={() => handleCategoryClick(category)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-            activeCategory === category
-              ? "bg-primary text-primary-foreground shadow-md"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-          }`}
-        >
-          {category}
-        </button>
-      ))}
+    <div className="flex justify-center mb-12">
+      <div className="flex flex-wrap gap-3 p-2 bg-white rounded-full shadow-lg">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => handleCategoryClick(category)}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              activeCategory === category
+                ? "bg-blue-600 text-white shadow-md"
+                : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
