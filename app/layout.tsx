@@ -56,7 +56,7 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          media="print"
+          media="all"  // Change from "print" to "all" for consistency
         />
         <noscript>
           <link

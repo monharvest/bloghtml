@@ -33,55 +33,11 @@ const nextConfig = {
   
   // Bundle size optimization
   experimental: {
-    // Reduce bundle size
-    bundlePagesRouterDependencies: true,
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    // Remove or comment out unrecognized options like 'bundlePagesRouterDependencies'
+    // Add valid ones if needed, e.g., 'appDir': true
   },
   
-  // Webpack optimizations for smaller bundles
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      // Aggressive bundle optimization for production
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              test: /\.(css|scss|sass)$/,
-              chunks: 'all',
-              enforce: true,
-            },
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'vendors',
-              chunks: 'all',
-              maxSize: 100000, // 100KB max chunks
-            },
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              enforce: true,
-              maxSize: 50000, // 50KB max for common chunks
-            },
-          },
-        },
-        // Tree shaking optimization
-        usedExports: true,
-        sideEffects: false,
-      }
-      
-      // Reduce bundle size further
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        // Use smaller alternatives where possible
-        '@': '/Users/batulziiulziikhuu/Desktop/blog',
-      }
-    }
-    return config
-  },
-}
+  outputFileTracingRoot: '/Users/batulziiulziikhuu/Desktop/blog',  // Set to project root
+};
 
-export default nextConfig
+export default nextConfig;
