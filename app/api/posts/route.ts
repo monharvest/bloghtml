@@ -1,34 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
+import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 
-const POSTS_FILE = path.join(process.cwd(), 'public', 'static-data', 'posts.json')
+const postsPath = path.join(process.cwd(), 'public/static-data/posts.json');  // Use the correct path
 
 export async function GET() {
   try {
-    if (!fs.existsSync(POSTS_FILE)) {
-      return NextResponse.json([])
-    }
-    const fileContent = fs.readFileSync(POSTS_FILE, 'utf-8')
-    const posts = JSON.parse(fileContent)
-    return NextResponse.json(posts)
+    const data = fs.readFileSync(postsPath, 'utf8');
+    const posts = JSON.parse(data);
+    return NextResponse.json(posts);
   } catch (error) {
-    console.error('Error reading posts:', error)
-    return NextResponse.json([])
+    return NextResponse.json({ error: 'Failed to load posts' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const posts = await request.json()
-    const dir = path.dirname(POSTS_FILE)
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
-    }
-    fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2))
-    return NextResponse.json({ success: true })
+    const updatedPosts = await request.json();  // Expect array of posts
+    fs.writeFileSync(postsPath, JSON.stringify(updatedPosts, null, 2));
+    return NextResponse.json({ message: 'Posts updated' });
   } catch (error) {
-    console.error('Error saving posts:', error)
-    return NextResponse.json({ error: 'Failed to save posts' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to update posts' }, { status: 500 });
   }
 }

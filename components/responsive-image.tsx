@@ -59,7 +59,7 @@ export function ResponsiveImage({
     // Disable lazy loading for priority images
     loading: priority ? ("eager" as const) : ("lazy" as const),
     // Enable optimization only for local images, disable for external or uploaded images
-    unoptimized: optimizedSrc?.startsWith('http') || optimizedSrc?.startsWith('/images/upload-') || false,
+    unoptimized: optimizedSrc?.startsWith('http') || optimizedSrc?.startsWith('/images/upload-') || optimizedSrc?.endsWith('.webp') || false,
     ...(fill 
       ? { fill: true } 
       : { 
