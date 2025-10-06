@@ -1,0 +1,29 @@
+import React from "react";
+
+interface ResponsiveImageProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  priority?: boolean;
+}
+
+const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  priority,
+}) => {
+  const imageProps = {
+    src,
+    alt,
+    width,
+    height,
+    loading: priority ? ("eager" as const) : ("lazy" as const),
+  };
+
+  return <img {...imageProps} />;
+};
+
+export default ResponsiveImage;

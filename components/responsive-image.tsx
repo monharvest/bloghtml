@@ -75,14 +75,15 @@ export function ResponsiveImage({
 
 // Preset configurations for common use cases
 export const ImagePresets = {
-  // For post cards in grid
+  // For post cards in grid - make lazy
   postCard: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     quality: 75,
     className: "object-cover"
+    // Removed priority to enable lazy loading
   },
   
-  // For first post card (high priority for LCP)
+  // For first post card (high priority for LCP) - keep priority
   postCardFirst: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
     quality: 80,
@@ -91,7 +92,7 @@ export const ImagePresets = {
     className: "object-cover"
   },
   
-  // For hero images
+  // Hero images - keep priority
   hero: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw",
     quality: 85,
@@ -100,21 +101,22 @@ export const ImagePresets = {
     className: "object-cover"
   },
   
-  // For full-width post images
+  // For full-width post images - make lazy
   postFull: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw",
     quality: 80,
     className: "object-cover"
+    // Removed priority
   },
   
-  // For thumbnails
+  // Thumbnails - lazy
   thumbnail: {
     sizes: "(max-width: 768px) 25vw, (max-width: 1200px) 20vw, 15vw",
     quality: 70,
     className: "object-cover"
   },
   
-  // For about page images
+  // About page - lazy
   about: {
     sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 50vw",
     quality: 80,
