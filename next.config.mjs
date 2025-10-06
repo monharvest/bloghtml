@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // For Cloudflare Pages, use static export only for production builds
-  output: process.env.NODE_ENV === 'production' && process.env.STATIC_EXPORT === 'true' ? 'export' : undefined,
+  output: 'export',
   trailingSlash: true,
   
   eslint: {
@@ -14,9 +14,9 @@ const nextConfig = {
   // Enhanced image optimization for responsive images
   images: {
     // Enable optimization for static export with smart fallback
-    unoptimized: process.env.NODE_ENV === 'production' && process.env.STATIC_EXPORT === 'true',
+    unoptimized: true,
     formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 31536000, // 1 year
+    qualities: [75, 80, 85],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     domains: [], // Add external domains if needed
